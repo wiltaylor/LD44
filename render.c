@@ -4,6 +4,7 @@
 #include <SDL2/SDL_image.h>
 #include "pixelrenderer.h"
 #include "texture.h"
+#include "fontrender.h"
 
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
@@ -17,40 +18,46 @@ bool init_render(int width, int height, char* title)
 
     if(SDL_Init(SDL_INIT_VIDEO) > 0)
     {
-        printf("Failed to init SDL video!");
+        printf("Failed to init SDL video!\n");
         return false;
     }
 
     window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
     if(window == NULL)
     {
-        printf("Unable to create SDL Window!");
+        printf("Unable to create SDL Window\n");
         return false;
     }
     
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if(renderer == NULL)
     {
-        printf("Failed to create renderer!");
+        printf("Failed to create renderer!\n");
         return false;
     }
 
 
     if(!IMG_Init(IMG_INIT_PNG))
     {
-        printf("Unable to laod image loading library!");
+        printf("Unable to laod image loading library!\n");
         return false;
     }
 
     if(!init_pixelrenderer(renderer, window, width, height, 100.0f))
     {
-        printf("Failed to load pixel renderer!");
+        printf("Failed to load pixel renderer!\n");
         return false;
     }
 
     if(!init_texture(window, renderer))
     {
-        printf("Failed to load texture handler!");
+        printf("Failed to load texture handler!\n");
+        return false;
+    }
+
+    if(!init_font(renderer))
+    {
+        printf("Failed to load font renderer!\n");
         return false;
     }
 
@@ -61,6 +68,7 @@ void shutdown_render()
 {
     shutdown_pixelrenderer();
     shutdown_texture();
+    shutdown_font();
 
     if(renderer != NULL)
         SDL_DestroyRenderer(renderer);

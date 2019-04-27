@@ -25,4 +25,6 @@ bool unlock_texture(Texture* texture);
 
 void draw_texture(Texture* texture, SDL_Rect target);
 
+SDL_Color convert_colour(Uint32 colour);
+
 #endif

@@ -3,6 +3,7 @@
 #include "input.h"
 #include "pixelrenderer.h"
 #include "texture.h"
+#include "fontrender.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
@@ -10,15 +11,21 @@
 
 Texture* test_tex = NULL;
 SDL_Rect test_rec;
+TTF_Font* test_font = NULL;
 
 void mainloop()
 {
+        
+
     update_input();
     start_frame();
     start_pixelrenderer();
     
     Uint32 red = set_colour(0xFF, 0x00, 0x00, 0xFF);
     Uint32 green = set_colour(0x00, 0xFF, 0x00, 0xFF);
+
+    //SDL_Color newred = SDL_MapRGBA(0xFF,0,0,0xFF);
+
     for(int i = 10; i < 100; i++)
     {
         write_pixel(i, 10, red, 10);
@@ -27,6 +34,7 @@ void mainloop()
 
     end_pixelrenderer();
     draw_texture(test_tex, test_rec);
+    draw_text(100,100, "Hey testing", red, test_font);
     end_frame();
     //DO loop stuff
 }
@@ -42,6 +50,10 @@ int main(int argc, char** arg)
 
     test_tex = load_texture("assets/test.png");
     if(test_tex == NULL)
+        return -1;
+
+    test_font = load_font("assets/neoletters.ttf", 12);
+    if(test_font == NULL)
         return -1;
 
     test_rec.x = 50;

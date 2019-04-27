@@ -3,11 +3,15 @@
 
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
+static SDL_PixelFormat* screen_format = NULL;
 
 bool init_texture(SDL_Window* win, SDL_Renderer* ren)
 {
     window = win; 
     renderer = ren;
+
+    Uint32 format = SDL_GetWindowPixelFormat(window);
+    screen_format = SDL_AllocFormat(format);
 
     return true;
 }
@@ -21,6 +25,7 @@ void shutdown_texture()
 Texture* load_texture(char* path)
 {
     Texture* result = malloc(sizeof(Texture));
+    result->pixels = NULL;
     
     SDL_Surface* loadedSurface = IMG_Load(path);
     if(loadedSurface == NULL) {
@@ -51,7 +56,7 @@ Texture* load_texture(char* path)
 
     if(!lock_texture(result))
     {
-        printf("Failed to lock texture during init");
+        printf("Failed to lock texture during init %s\n", path);
         return NULL;
     }
 
@@ -63,7 +68,21 @@ Texture* load_texture(char* path)
         return NULL;
     }
 
+    SDL_FreeSurface(loadedSurface);
+    SDL_FreeSurface(formatedSurface);
+
     return result;
+}
+
+void unload_texture(Texture* texture)
+{
+    if(texture == NULL)
+        return;
+    if(texture->texture != NULL)
+        SDL_DestroyTexture(texture->texture);
+
+    texture->texture = NULL;
+    texture->pixels = NULL;
 }
 
 bool lock_texture(Texture* texture)
@@ -99,4 +118,13 @@ bool unlock_texture(Texture* texture)
 void draw_texture(Texture* texture, SDL_Rect target)
 {
     SDL_RenderCopy(renderer, texture->texture, &texture->rect, &target);
+}
+
+SDL_Color convert_colour(Uint32 colour)
+{
+    SDL_Color result;
+
+    SDL_GetRGBA(colour, screen_format, &result.r, &result.g, &result.b, &result.a);
+  
+    return result;
 }
