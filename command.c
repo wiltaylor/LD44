@@ -5,9 +5,11 @@
 #include <stdbool.h>
 #include "console.h"
 
+#include "gamemanager.h"
+
 const int MaxParts = 25;
 
-bool extract_parts(char* command, size_t* count, char*** p)
+void extract_parts(char* command, size_t* count, char*** p)
 {
     size_t command_len = strlen(command);
 
@@ -83,7 +85,7 @@ bool extract_parts(char* command, size_t* count, char*** p)
 
     *count = part_index;
     *p = parts;
-    return true;
+    return;
 }
 
 void execute_command(char* command)
@@ -93,9 +95,13 @@ void execute_command(char* command)
     
    extract_parts(command, &count, &parts);
 
-   for(int i = 0; i < count; i++)
+   if(count <= 0)
+       return;
+
+   if(strcmp(parts[0], "exit") == 0)
    {
-       append_text(parts[i]);
+       quit_game();
    }
-    
+
+
 }

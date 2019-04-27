@@ -6,6 +6,7 @@
 #include "fontrender.h"
 #include "console.h"
 #include "command.h"
+#include "gamemanager.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
@@ -81,7 +82,7 @@ int main(int argc, char** arg)
     #ifdef __EMSCRIPTEN__
     emscripten_set_main_loop(mainloop, 0, 1);
     #else
-    while(!quiting()) {
+    while(!is_quiting()) {
         mainloop();
     }
     

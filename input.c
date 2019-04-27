@@ -3,8 +3,8 @@
 #include "console.h"
 #include <malloc.h>
 #include "command.h"
+#include "gamemanager.h"
 
-static bool quitflag = false;
 static bool consoleflag = false;
 
 static SDL_Event e;
@@ -25,7 +25,7 @@ void update_input()
     {
         if(e.type == SDL_QUIT)
         {
-            quitflag = true;
+            quit_game();
         }
         if(e.type == SDL_TEXTINPUT)
         {
@@ -83,7 +83,3 @@ void shutdown_input()
     //Do shutdown code 
 }
 
-bool quiting()
-{
-    return quitflag;
-}
