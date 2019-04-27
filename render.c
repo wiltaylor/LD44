@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <SDL2/SDL_image.h>
 #include "pixelrenderer.h"
+#include "texture.h"
 
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
@@ -47,12 +48,19 @@ bool init_render(int width, int height, char* title)
         return false;
     }
 
+    if(!init_texture(window, renderer))
+    {
+        printf("Failed to load texture handler!");
+        return false;
+    }
+
     return true;
 }
 
 void shutdown_render()
 {
     shutdown_pixelrenderer();
+    shutdown_texture();
 
     if(renderer != NULL)
         SDL_DestroyRenderer(renderer);
