@@ -67,7 +67,7 @@ int main(int argc, char** arg)
     if(!init_console(rect))
         return -1; 
         
-   toggle_console(true); 
+   //toggle_console(true); 
 
    execute_command("test \"foo bar\" bar bar two");
 
