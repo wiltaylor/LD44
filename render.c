@@ -2,11 +2,12 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include <SDL2/SDL_image.h>
+#include "pixelrenderer.h"
 
-SDL_Window* window = NULL;
-SDL_Renderer* renderer = NULL;
-int screen_width = 0;
-int screen_height = 0;
+static SDL_Window* window = NULL;
+static SDL_Renderer* renderer = NULL;
+static int screen_width = 0;
+static int screen_height = 0;
 
 bool init_render(int width, int height, char* title)
 {
@@ -40,11 +41,19 @@ bool init_render(int width, int height, char* title)
         return false;
     }
 
+    if(!init_pixelrenderer(renderer, window, width, height, 100.0f))
+    {
+        printf("Failed to load pixel renderer!");
+        return false;
+    }
+
     return true;
 }
 
 void shutdown_render()
 {
+    shutdown_pixelrenderer();
+
     if(renderer != NULL)
         SDL_DestroyRenderer(renderer);
     

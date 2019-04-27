@@ -3,4 +3,5 @@ game.html
 game
 game.o
 game.data
+game.wasm
 
