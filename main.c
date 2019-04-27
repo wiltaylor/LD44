@@ -5,6 +5,7 @@
 #include "texture.h"
 #include "fontrender.h"
 #include "console.h"
+#include "command.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
@@ -67,6 +68,8 @@ int main(int argc, char** arg)
         return -1; 
         
    toggle_console(true); 
+
+   execute_command("test \"foo bar\" bar bar two");
 
 
     test_rec.x = 50;

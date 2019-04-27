@@ -8,7 +8,6 @@ bool init_console(SDL_Rect dims);
 void shutdown_console();
 void toggle_console(bool active);
 void update_console();
-void execute(char* command);
 void append_text(char* text);
 void set_commandline(char* text);
 #endif

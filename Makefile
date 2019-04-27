@@ -13,7 +13,7 @@ EXEC = game
 all: $(EXEC)
 
 $(EXEC): $(SOURCES) $(HEADERS)
-	$(CC) -o $@ $(CFLAGS) $(LIBS) $(HEADERS) $(SOURCES)
+	$(CC) -g -o $@ $(CFLAGS) $(LIBS) $(HEADERS) $(SOURCES)
 run: $(EXEC)
 	./$(EXEC)
 

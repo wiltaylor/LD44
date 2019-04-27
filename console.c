@@ -49,13 +49,15 @@ void append_text(char* text)
     
     text_buffer[0] = malloc(len + 1);
     strncpy(text_buffer[0], text, len);
-    text_buffer[len] = 0;
+    text_buffer[0][len] = 0;
     
     
 }
 
 bool init_console(SDL_Rect dims) 
 {
+
+
     console_dimensions = dims;
 
     text_rows = dims.h / (text_size + 2);
@@ -113,6 +115,7 @@ void update_console()
             drawline(i, text_buffer[i-2]);
         
     drawline(1, command_line);
+
 }
 
 
