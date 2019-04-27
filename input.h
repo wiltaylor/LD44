@@ -5,5 +5,4 @@
 bool init_input();
 void shutdown_input();
 void update_input();
-bool quiting();
 #endif

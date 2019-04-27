@@ -3,6 +3,7 @@
 #include "fontrender.h"
 #include <stdio.h>
 #include <string.h>
+#include "pixelrenderer.h"
 
 static Texture* background_texture = NULL;
 static bool console_active = false;
@@ -82,7 +83,7 @@ bool init_console(SDL_Rect dims)
     return true;
 }
 
-void shutdown()
+void shutdown_console()
 {
     if(background_texture != NULL)
         unload_texture(background_texture);

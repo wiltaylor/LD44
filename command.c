@@ -90,18 +90,30 @@ void extract_parts(char* command, size_t* count, char*** p)
 
 void execute_command(char* command)
 {
-   int count;
-   char** parts;
+    int count;
+    char** parts;
+    char* repeat;
+    int len = strlen(command);
     
-   extract_parts(command, &count, &parts);
+    repeat = malloc(len + 2);
+    repeat[0] = '>';
+    repeat[1] = 0;
+    strcat(repeat, command);
+    repeat[len + 1] = 0;
 
-   if(count <= 0)
+    append_text(repeat);
+
+    extract_parts(command, &count, &parts);
+
+    if(count <= 0)
        return;
 
-   if(strcmp(parts[0], "exit") == 0)
-   {
-       quit_game();
-   }
+    if(strcmp(parts[0], "exit") == 0)
+    {
+        quit_game();
+        return;
+    }
 
-
+    append_text("Unknown command. Use help to list commands.");
+   
 }

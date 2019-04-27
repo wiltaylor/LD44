@@ -24,23 +24,22 @@ void mainloop()
     start_frame();
     start_pixelrenderer();
     
-    Uint32 red = set_colour(0xFF, 0x00, 0x00, 0xFF);
-    Uint32 green = set_colour(0x00, 0xFF, 0x00, 0xFF);
+    //Uint32 red = set_colour(0xFF, 0x00, 0x00, 0xFF);
+    //Uint32 green = set_colour(0x00, 0xFF, 0x00, 0xFF);
 
-    for(int i = 250; i < 300; i++)
-    {
-        write_pixel(i, 10, red, 10);
-        write_pixel(10, i, green, 20);
-    }
+    //for(int i = 250; i < 300; i++)
+    //{
+        //write_pixel(i, 10, red, 10);
+      //  write_pixel(10, i, green, 20);
+    //}
 
     end_pixelrenderer();
-    draw_texture(test_tex, test_rec);
-    draw_text(400,400, "Hey testing", red, test_font);
+    //draw_texture(test_tex, test_rec);
+    //draw_text(400,400, "Hey testing", red, test_font);
     
     update_console();
     end_frame();
-    //DO loop stuff
-}
+    }
 
 int main(int argc, char** arg) 
 {
@@ -67,11 +66,6 @@ int main(int argc, char** arg)
 
     if(!init_console(rect))
         return -1; 
-        
-   //toggle_console(true); 
-
-   execute_command("test \"foo bar\" bar bar two");
-
 
     test_rec.x = 50;
     test_rec.y = 50;

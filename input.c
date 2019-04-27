@@ -14,6 +14,7 @@ bool init_input()
 {
     text = malloc(sizeof(char) * 100);
     text[0] = 0;
+    set_commandline(text);
 
     //nothing yet
     return true;
@@ -29,6 +30,9 @@ void update_input()
         }
         if(e.type == SDL_TEXTINPUT)
         {
+            if(strcmp(e.text.text, "`") == 0)
+                continue;
+
             strcat(text, e.text.text);
             set_commandline(text);
         }
