@@ -4,6 +4,7 @@
 #include "pixelrenderer.h"
 #include "texture.h"
 #include "fontrender.h"
+#include "console.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
@@ -24,9 +25,7 @@ void mainloop()
     Uint32 red = set_colour(0xFF, 0x00, 0x00, 0xFF);
     Uint32 green = set_colour(0x00, 0xFF, 0x00, 0xFF);
 
-    //SDL_Color newred = SDL_MapRGBA(0xFF,0,0,0xFF);
-
-    for(int i = 10; i < 100; i++)
+    for(int i = 250; i < 300; i++)
     {
         write_pixel(i, 10, red, 10);
         write_pixel(10, i, green, 20);
@@ -34,7 +33,9 @@ void mainloop()
 
     end_pixelrenderer();
     draw_texture(test_tex, test_rec);
-    draw_text(100,100, "Hey testing", red, test_font);
+    draw_text(400,400, "Hey testing", red, test_font);
+    
+    update_console();
     end_frame();
     //DO loop stuff
 }
@@ -42,7 +43,7 @@ void mainloop()
 int main(int argc, char** arg) 
 {
     //init stuff
-    if(!init_render(640, 480, "Ludum Dare 44"))
+    if(!init_render(800, 600, "Ludum Dare 44"))
         return -1;
 
     if(!init_input())
@@ -55,6 +56,18 @@ int main(int argc, char** arg)
     test_font = load_font("assets/neoletters.ttf", 12);
     if(test_font == NULL)
         return -1;
+
+    SDL_Rect rect;
+    rect.x = 0;
+    rect.y = 0;
+    rect.w = 800;
+    rect.h = 300;
+
+    if(!init_console(rect))
+        return -1; 
+        
+   toggle_console(true); 
+
 
     test_rec.x = 50;
     test_rec.y = 50;

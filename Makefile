@@ -18,10 +18,10 @@ run: $(EXEC)
 	./$(EXEC)
 
 web:
-	$(WEBCC) --preload-file assets $(HEADERS) $(SOURCES) $(WEBCFLAGS) -o $(EXEC).html 
+	$(WEBCC) --preload-file assets $(SOURCES) $(WEBCFLAGS) -o $(EXEC).html 
 
 web-debug-build: clean
-	$(WEBCC) --preload-file assets $(HEADERS) $(SOURCES) $(WEBCFLAGS) -o $(EXEC).html --emrun 
+	$(WEBCC) --preload-file assets $(SOURCES) $(WEBCFLAGS) -o $(EXEC).html --emrun 
 
 web-run: web-debug-build
 	$(WEBRUN) $(EXEC).html --browser $(BROWSER)

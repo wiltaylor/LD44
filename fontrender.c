@@ -28,6 +28,11 @@ TTF_Font* load_font(char* path, int size)
     return result;
 }
 
+void unload_font(TTF_Font* font)
+{
+    TTF_CloseFont(font);
+}
+
 Texture* render_text(char* text, Uint32 colour, TTF_Font* font)
 {
     SDL_Color convertedcolour = convert_colour(colour);
