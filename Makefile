@@ -4,7 +4,7 @@ WEBCC=emcc
 WEBRUN=emrun
 BROWSER=firefox
 WEBCFLAGS= -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s SDL2_IMAGE_FORMATS='["png"]' -s USE_SDL_TTF=2  
-LIBS= -lSDL2 -lSDL2_image -lSDL2_ttf
+LIBS= -lSDL2 -lSDL2_image -lSDL2_ttf -lm
 CFLAGS= -std=c11
 SOURCES=$(wildcard *.c)
 HEADERS=$(wildcard *.h)

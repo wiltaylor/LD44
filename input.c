@@ -4,6 +4,7 @@
 #include <malloc.h>
 #include "command.h"
 #include "gamemanager.h"
+#include "player.h"
 
 static bool consoleflag = false;
 
@@ -30,6 +31,9 @@ void update_input()
         }
         if(e.type == SDL_TEXTINPUT)
         {
+            if(!consoleflag)
+                continue;
+
             if(strcmp(e.text.text, "`") == 0)
                 continue;
 
@@ -41,6 +45,39 @@ void update_input()
         {
             switch(e.key.keysym.sym)
             {
+                case SDLK_w:
+                    if(!consoleflag)
+                    {
+                        float* ang = player_angle();
+                        vec3* vel = player_vel();
+                        vel->x += cosf(*ang) * 0.2f;
+                        vel->y += sinf(*ang) * 0.2f; 
+                    }
+                    break;
+                case SDLK_s:
+                    if(!consoleflag)
+                    {
+                        float* ang = player_angle();
+                        vec3* vel = player_vel();
+                        vel->x -= cosf(*ang) * 0.2f;
+                        vel->y -= sinf(*ang) * 0.2f;
+                    }
+                    break;
+                case SDLK_a:
+                    if(!consoleflag)
+                    {
+                        float* ang = player_angle();
+                        *ang += 0.01;
+
+                    }
+                    break;
+                case SDLK_d:
+                    if(!consoleflag)
+                    {
+                        float* ang = player_angle();
+                        *ang -= 0.01;
+                    }
+                    break;
                 case SDLK_RETURN:
                     if(consoleflag)
                     {

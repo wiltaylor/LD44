@@ -7,6 +7,10 @@
 #include "console.h"
 #include "command.h"
 #include "gamemanager.h"
+#include "levelrender.h"
+#include "player.h"
+#include "timer.h"
+#include "debug.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
@@ -18,13 +22,13 @@ TTF_Font* test_font = NULL;
 
 void mainloop()
 {
-        
-
+    update_timer();
     update_input();
+    update_player();
     start_frame();
     start_pixelrenderer();
-    
-    //Uint32 red = set_colour(0xFF, 0x00, 0x00, 0xFF);
+    update_level();
+    //.Uint32 red = set_colour(0xFF, 0x00, 0x00, 0xFF);
     //Uint32 green = set_colour(0x00, 0xFF, 0x00, 0xFF);
 
     //for(int i = 250; i < 300; i++)
@@ -36,7 +40,7 @@ void mainloop()
     end_pixelrenderer();
     //draw_texture(test_tex, test_rec);
     //draw_text(400,400, "Hey testing", red, test_font);
-    
+    update_debug();
     update_console();
     end_frame();
     }
@@ -71,6 +75,9 @@ int main(int argc, char** arg)
     test_rec.y = 50;
     test_rec.w = 100;
     test_rec.h = 100;
+
+    init_level();
+    init_debug();
     
     //Loop logic
     #ifdef __EMSCRIPTEN__
@@ -80,6 +87,7 @@ int main(int argc, char** arg)
         mainloop();
     }
     
+    shutdown_debug();
     shutdown_input();
     shutdown_render();
 

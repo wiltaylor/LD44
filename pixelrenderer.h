@@ -11,5 +11,7 @@ void force_write(int x, int y, Uint32 colour, float depth);
 
 Uint32 set_colour(Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 void get_colours(Uint32 colour, Uint8* r, Uint8* g, Uint8* b, Uint8* a);
+
+void draw_line(int x1, int y1, int x2, int y2, Uint32 colour);
 #endif
 
